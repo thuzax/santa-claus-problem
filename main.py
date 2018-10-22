@@ -27,11 +27,12 @@ def main():
         listaRena.append(elfo)
 
     controlador = Controlador(papaiNoel, listaElfo, listaRena, TAMANHO_GRUPO_ELFOS)
-    
+
+
     papaiNoel.start()
 
-    # for elfo in listaElfo:
-    #     elfo.start()
+    for elfo in listaElfo:
+        elfo.start()
 
     # for rena in listaRena:
     #     rena.start()

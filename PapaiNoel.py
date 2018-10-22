@@ -12,14 +12,27 @@ class PapaiNoel (threading.Thread):
         self.dormindo = True
 
     def run(self):
-        print(c1.instancia)
+        controlador = Controlador()
+        while True:
+            if(not self.dormindo):
+                controlador.ajuda()
+            
         print ("Starting " + self.name)
         print ("Exiting " + self.name)
     
     def acorda(self):
         self.dormindo = False
     
-    def dormindo(self):
+    def dorme(self):
         self.dormindo = True
 
+    def ajudaRenas(self):
+        print("Ajudando as renas")
+        time.sleep(0.1)
+    
+    def ajudaElfos(self):
+        print("Ajudando os elfos")
+        time.sleep(0.1)
 
+    def estaAcordado(self):
+        return (not self.dormindo)
