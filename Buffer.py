@@ -1,17 +1,17 @@
 class Buffer:
 
     def __init__(self, tamanho):
-        self.tamanho = tamanho
+        self.tamanhoMax = tamanho
         self.pilha = []
     
     def estaVazio(self):
         return len(self.pilha) == 0
     
     def estaCheio(self):
-        return self.tamanho == len(self.pilha)
+        return self.tamanhoMax == len(self.pilha)
 
     def getTamanho(self):
-        return self.tamanho
+        return self.tamanhoMax
 
     def insere(self, objeto):
         if(self.estaCheio()):
