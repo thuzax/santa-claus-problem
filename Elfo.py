@@ -13,9 +13,11 @@ class Elfo(threading.Thread):
         # time.sleep(random.random()/10)
         print ("Starting " + self.name)
         controlador = Controlador()
-        
-        controlador.adicionaBufferElfo(self)
+        while True:
+            controlador.adicionaBufferElfo(self)
+            time.sleep(2)
         print ("Exiting " + self.name)
 
     def obtemAjuda(self):
-        time.sleep(0.1)
+        # print("Elfo " + str(self.threadID) + " obtendo ajuda")
+        time.sleep(0.8)

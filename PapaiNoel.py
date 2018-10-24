@@ -28,11 +28,15 @@ class PapaiNoel (threading.Thread):
 
     def ajudaRenas(self):
         print("Ajudando as renas")
-        time.sleep(0.1)
+        time.sleep(1)
     
     def ajudaElfos(self):
         print("Ajudando os elfos")
-        time.sleep(0.1)
+        time.sleep(1)
 
     def estaAcordado(self):
         return (not self.dormindo)
+    
+    def distribuiBrinquedos(self):
+        print("O papai noel está distribuindo brinquedos...")
+        time.sleep(3)

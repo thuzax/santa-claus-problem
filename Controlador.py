@@ -28,13 +28,13 @@ class Controlador:
                         self.porta.release()
                         self.anel.release()
                     self.bufferElfo.insere(elfo)
-            print(self.contadorElfo)
             
         
         def __adicionaBufferRena(self, rena):
             if self.anel.acquire(False):
                 self.contadorRena += 1
                 if self.contadorRena == self.bufferRena.getTamanho():
+                    print("adicionou!")
                     self.anel.release()
                     self.papaiNoel.acorda()
                 else:
@@ -53,14 +53,61 @@ class Controlador:
                 if(self.__bufferRenasCheio()):
                     self.papaiNoel.ajudaRenas()
                     self.anel.release()
-
+                    renas = self.bufferRena.getPilha()
+                    # Amarrar as renas
+                    for rena in renas:
+                        if self.anel.acquire(False):
+                            rena.amarraRena()
+                            self.anel.release()
+                    # Destribuir os brinquedos
+                    if self.anel.acquire(False):
+                        self.papaiNoel.distribuiBrinquedos()
+                        self.anel.release()
+                    # Desamarrar as renas
+                    while not self.bufferRena.estaVazio():
+                        rena = self.bufferRena.remove()
+                        print(self.bufferRena.getTamanhoAtual())
+                        self.contadorRena -= 1
+                        print("Rena " + str(rena.name) + " sendo removido do buffer")
+                        #Tranca o anel
+                        if self.anel.acquire(False):
+                            print("Rena " + str(rena.name) + " esta sendo desamarrada")
+                            # Obtem a ajuda e tranca o anel novamente
+                            rena.desamarraRena()
+                            print("Rena " + str(rena.name) + " liberando o anel")
+                            self.anel.release()
+                            rena.tiraFerias()
+                    # Voltar a dormir
                     self.papaiNoel.dorme()
+                    for rena in self.listaRena:
+                        rena.terminouFerias()
+                    # for i in range(len(self.listaRena)):
+                    #     print("AQY")
+                        # self.listaRena[i].descansa()
+
                 else:
                     self.papaiNoel.ajudaElfos()
                     elfo = self.bufferElfo.remove()
+                    elfo.obtemAjuda()
                     self.anel.release()
                     self.papaiNoel.dorme()
-                
+                    # Enquanto tiver elfo no buffer...
+                    while not self.bufferElfo.estaVazio():
+                        # Pega um elfo do buffer
+                        elfo = self.bufferElfo.remove()
+                        print(self.bufferElfo.getTamanhoAtual())
+                        self.contadorElfo -= 1
+                        print("Elfo " + str(elfo.name) + " sendo removido do buffer")
+                        #Tranca o anel
+                        if self.anel.acquire(False):
+                            print("Elfo " + str(elfo.name) + " trancando o anel")
+                            # Obtem a ajuda e tranca o anel novamente
+                            elfo.obtemAjuda()
+                            print("Elfo " + str(elfo.name) + " liberando o anel")
+                            self.anel.release()
+                        if self.bufferElfo.estaVazio():
+                            print("Elfo está destrancando a porta")
+                            self.porta.release()
 
         def __bufferRenasCheio(self):
             return self.bufferRena.estaCheio()

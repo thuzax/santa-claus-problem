@@ -22,20 +22,20 @@ def main():
 
     listaRena = []
     for j in range(0, QUANTIDADE_RENAS):
-        elfo = Rena(idThread, "Rena" + str(j))
+        rena = Rena(idThread, "Rena" + str(j))
         idThread += 1
-        listaRena.append(elfo)
+        listaRena.append(rena)
 
     controlador = Controlador(papaiNoel, listaElfo, listaRena, TAMANHO_GRUPO_ELFOS)
 
 
     papaiNoel.start()
 
-    for elfo in listaElfo:
-        elfo.start()
+    # for elfo in listaElfo:
+    #     elfo.start()
 
-    # for rena in listaRena:
-    #     rena.start()
+    for rena in listaRena:
+        rena.start()
     
 
 

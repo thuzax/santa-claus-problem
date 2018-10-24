@@ -18,8 +18,15 @@ class Buffer:
             return
         self.pilha.append(objeto)
 
+    def getPilha(self):
+        return self.pilha
 
     def remove(self):
         if(self.estaVazio()):
             return None
-        return self.pilha.pop()
+        print("removeu!")
+        pop = self.pilha.pop()
+        return pop
+    
+    def getTamanhoAtual(self):
+        return len(self.pilha)
